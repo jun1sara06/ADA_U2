@@ -26,6 +26,7 @@ public class GUIRegistro extends JFrame {
 	private JPanel contentPane;
 	private JTextField txtNombre;
 	private JTextField txtNivel;
+	
 
 	/**
 	 * Launch the application.
@@ -47,7 +48,6 @@ public class GUIRegistro extends JFrame {
 	 * Create the frame.
 	 */
 	public GUIRegistro() {
-		
 		ArrayList<Persona> Personas = new ArrayList <Persona>();
 	    DefaultListModel<String> Modelolis = new DefaultListModel<>();
 		
@@ -58,27 +58,27 @@ public class GUIRegistro extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JPanel ventanaDeRegistro = new JPanel();
-		ventanaDeRegistro.setBounds(0, 0, 900, 600);
-		ventanaDeRegistro.setLayout(null);
-		contentPane.add(ventanaDeRegistro);
-		
 		JPanel ventanaConsultarHistorial = new JPanel();
 		ventanaConsultarHistorial.setBounds(0, 0, 900, 600);
 		ventanaConsultarHistorial.setLayout(null);
 		ventanaConsultarHistorial.setVisible(false);
 		contentPane.add(ventanaConsultarHistorial);
 		
+		JList<String> listHistorial = new JList<>(Modelolis);
+		JScrollPane scrollPane = new JScrollPane(listHistorial);
+		scrollPane.setBounds(50, 50, 800, 400);
+		ventanaConsultarHistorial.add(scrollPane);
+		
+		JPanel ventanaDeRegistro = new JPanel();
+		ventanaDeRegistro.setBounds(0, 0, 900, 600);
+		ventanaDeRegistro.setLayout(null);
+		contentPane.add(ventanaDeRegistro);
+		
 		JPanel ventanaDeBuscar = new JPanel();
 		ventanaDeBuscar.setBounds(0, 0, 900, 600);
 		ventanaDeBuscar.setLayout(null);
 		ventanaDeBuscar.setVisible(true);
 		contentPane.add(ventanaDeBuscar);
-		
-		JList<String> listHistorial = new JList<>(Modelolis);
-		JScrollPane scrollPane = new JScrollPane(listHistorial);
-		scrollPane.setBounds(50, 50, 800, 400);
-		ventanaDeBuscar.add(scrollPane);
 		
 		JLabel lblTitulo = new JLabel("Registra tu nivel de glucosa");
 		lblTitulo.setFont(new Font("Yu Gothic UI", Font.BOLD, 32));
@@ -179,6 +179,7 @@ public class GUIRegistro extends JFrame {
 				 persona.setDia(Byte.parseByte(spinnerDia.getValue().toString()));
 				 persona.setMes(Byte.parseByte(comboMes.getSelectedItem().toString()));
 				 persona.setAño(Short.parseShort(spinnerAño.getValue().toString()));
+				 Personas.add(persona);
 			}
 		});
 		btnRegistrar.setBounds(740, 500, 116, 35);
@@ -191,6 +192,23 @@ public class GUIRegistro extends JFrame {
 		JButton btnConsHis = new JButton("Consultar Hitorial");
 		btnConsHis.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Modelolis.clear();
+				 for (int i=0; i<Personas.size()- 1; i++) {
+				        for (int j=0; j<Personas.size()- i - 1; j++) {
+				        	if (Personas.get(j).getNombre().compareToIgnoreCase(Personas.get(j+1).getNombre())>0) {
+				        		Persona aux =Personas.get(j);
+				                Personas.set(j,Personas.get(j+1));
+				                Personas.set(j+1, aux);
+				            }
+				        }
+				    }
+
+				 for (Persona n:Personas) {
+				        Modelolis.addElement("Paciente: "+n.getNombre()+" | Nivel: "+n.getNivel());
+				    }
+				 
+				 ventanaDeRegistro.setVisible(false);
+				 ventanaConsultarHistorial.setVisible(true);
 			}
 		});
 		btnConsHis.setFont(new Font("Yu Gothic", Font.BOLD, 12));
