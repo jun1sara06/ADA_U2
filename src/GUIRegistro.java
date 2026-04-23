@@ -2,18 +2,23 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JSpinner;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
+import javax.swing.JToolBar;
 
 public class GUIRegistro extends JFrame {
 
@@ -44,6 +49,7 @@ public class GUIRegistro extends JFrame {
 	public GUIRegistro() {
 		
 		ArrayList<Persona> Personas = new ArrayList <Persona>();
+	    DefaultListModel<String> Modelolis = new DefaultListModel<>();
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 900, 600);
@@ -57,11 +63,22 @@ public class GUIRegistro extends JFrame {
 		ventanaDeRegistro.setLayout(null);
 		contentPane.add(ventanaDeRegistro);
 		
+		JPanel ventanaConsultarHistorial = new JPanel();
+		ventanaConsultarHistorial.setBounds(0, 0, 900, 600);
+		ventanaConsultarHistorial.setLayout(null);
+		ventanaConsultarHistorial.setVisible(false);
+		contentPane.add(ventanaConsultarHistorial);
+		
 		JPanel ventanaDeBuscar = new JPanel();
 		ventanaDeBuscar.setBounds(0, 0, 900, 600);
 		ventanaDeBuscar.setLayout(null);
 		ventanaDeBuscar.setVisible(true);
 		contentPane.add(ventanaDeBuscar);
+		
+		JList<String> listHistorial = new JList<>(Modelolis);
+		JScrollPane scrollPane = new JScrollPane(listHistorial);
+		scrollPane.setBounds(50, 50, 800, 400);
+		ventanaDeBuscar.add(scrollPane);
 		
 		JLabel lblTitulo = new JLabel("Registra tu nivel de glucosa");
 		lblTitulo.setFont(new Font("Yu Gothic UI", Font.BOLD, 32));
@@ -166,6 +183,22 @@ public class GUIRegistro extends JFrame {
 		});
 		btnRegistrar.setBounds(740, 500, 116, 35);
 		ventanaDeRegistro.add(btnRegistrar);
+		
+		JToolBar toolBar = new JToolBar();
+		toolBar.setBounds(20, 11, 141, 30);
+		ventanaDeRegistro.add(toolBar);
+		
+		JButton btnConsHis = new JButton("Consultar Hitorial");
+		btnConsHis.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnConsHis.setFont(new Font("Yu Gothic", Font.BOLD, 12));
+		toolBar.add(btnConsHis);
+		
+		
+		
+		
 		
 		
 	}
