@@ -1,27 +1,17 @@
 
 public class Persona {
+	private int id;
 	private String nombre;
 	private float nivel;
 	private byte dia;
 	private byte mes;
 	private short año;
+	
 	public Persona () {
 		
 	}
-	/**
-	 * @param nombre
-	 * @param nivel
-	 * @param dia
-	 * @param mes
-	 * @param año
-	 */
-	public Persona(String nombre, float nivel, byte dia, byte mes, short año) {
-		this.nombre = nombre;
-		this.nivel = nivel;
-		this.dia = dia;
-		this.mes = mes;
-		this.año = año;
-	}
+
+
 	public String getNombre() {
 		return nombre;
 	}
@@ -51,6 +41,12 @@ public class Persona {
 	}
 	public void setAño(short año) {
 		this.año = año;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 	
