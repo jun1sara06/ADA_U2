@@ -10,10 +10,12 @@ import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JSpinner;
+import javax.swing.JTextArea;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
 
 public class GUIRegistro extends JFrame {
 
@@ -21,6 +23,7 @@ public class GUIRegistro extends JFrame {
 	private JPanel contentPane;
 	private JTextField txtNombre;
 	private JTextField txtNivel;
+	private JTextField textField;
 
 	/**
 	 * Launch the application.
@@ -52,16 +55,17 @@ public class GUIRegistro extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		JPanel ventanaDeBuscar = new JPanel();
+		ventanaDeBuscar.setBackground(new Color(255, 128, 128));
+		ventanaDeBuscar.setBounds(0, 0, 900, 600);
+		ventanaDeBuscar.setLayout(null);
+		ventanaDeBuscar.setVisible(false);
+		contentPane.add(ventanaDeBuscar);
+		
 		JPanel ventanaDeRegistro = new JPanel();
 		ventanaDeRegistro.setBounds(0, 0, 900, 600);
 		ventanaDeRegistro.setLayout(null);
 		contentPane.add(ventanaDeRegistro);
-		
-		JPanel ventanaDeBuscar = new JPanel();
-		ventanaDeBuscar.setBounds(0, 0, 900, 600);
-		ventanaDeBuscar.setLayout(null);
-		ventanaDeBuscar.setVisible(true);
-		contentPane.add(ventanaDeBuscar);
 		
 		JLabel lblTitulo = new JLabel("Registra tu nivel de glucosa");
 		lblTitulo.setFont(new Font("Yu Gothic UI", Font.BOLD, 32));
@@ -162,33 +166,58 @@ public class GUIRegistro extends JFrame {
 				 persona.setDia(Byte.parseByte(spinnerDia.getValue().toString()));
 				 persona.setMes(Byte.parseByte(comboMes.getSelectedItem().toString()));
 				 persona.setAño(Short.parseShort(spinnerAño.getValue().toString()));
+				 Personas.add(persona);
+				 
+				 ventanaDeRegistro.setVisible(false);
+				 ventanaDeBuscar.setVisible(true);
 			}
 		});
 		btnRegistrar.setBounds(740, 500, 116, 35);
 		ventanaDeRegistro.add(btnRegistrar);
 		
+		JTextArea resultados = new JTextArea("");
+		resultados.setBounds(211, 206, 374, 188);
+		ventanaDeBuscar.add(resultados);
+		
+		//Cambios de Carol Canto
+		
 		JButton btnBuscar = new JButton("Buscar");
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String nombreBuscado = javax.swing.JOptionPane.showInputDialog(
-						"Ingrese el nombre de la persona: ");
 				
+				
+				String nombreBuscado = textField.getText().trim();
+				
+				String resultado = "";
 		
 				for(Persona p : Personas) {
-					if (p.getNombre().equalsIgnoreCase(nombreBuscado)) {
+					if (p.getNombre().equals(nombreBuscado)) {
 						
-					javax.swing.JOptionPane.showMessageDialog(null, 
-							"nombre: "+ p.getNombre( ) + "\nNivel: " + p.getNivel());
+					resultado += p.getNombre( ) + 
+							"\n" + p.getNivel() +
+							"\n" +p.getDia()+"/"+p.getMes()+"/"
+							+p.getAño();
 					
-					return;
+					
 				}
 			}
-			javax.swing.JOptionPane.showMessageDialog(null, "persona no encontrada ");
+					if (resultado.isEmpty()) {
+						resultado ="persona no encontrada";
+					}
+					resultados.setText(resultado);
+					
+					ventanaDeRegistro.setVisible(false);
+					ventanaDeBuscar.setVisible(true);
 			}
-			//cambio de carol
 		});
-		btnBuscar.setBounds(416, 500, 116, 35);
-		ventanaDeRegistro.add(btnBuscar);
+		btnBuscar.setBounds(221, 440, 116, 35);
+		ventanaDeBuscar.add(btnBuscar);
+		
+		textField = new JTextField();
+		textField.setBounds(223, 60, 181, 41);
+		ventanaDeBuscar.add(textField);
+		textField.setColumns(10);
+		
 		
 		
 	}
