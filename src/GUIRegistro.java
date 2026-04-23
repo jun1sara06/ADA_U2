@@ -167,6 +167,29 @@ public class GUIRegistro extends JFrame {
 		btnRegistrar.setBounds(740, 500, 116, 35);
 		ventanaDeRegistro.add(btnRegistrar);
 		
+		JButton btnBuscar = new JButton("Buscar");
+		btnBuscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String nombreBuscado = javax.swing.JOptionPane.showInputDialog(
+						"Ingrese el nombre de la persona: ");
+				
+		
+				for(Persona p : Personas) {
+					if (p.getNombre().equalsIgnoreCase(nombreBuscado)) {
+						
+					javax.swing.JOptionPane.showMessageDialog(null, 
+							"nombre: "+ p.getNombre( ) + "\nNivel: " + p.getNivel());
+					
+					return;
+				}
+			}
+			javax.swing.JOptionPane.showMessageDialog(null, "persona no encontrada ");
+			}
+			//cambio de carol
+		});
+		btnBuscar.setBounds(416, 500, 116, 35);
+		ventanaDeRegistro.add(btnBuscar);
+		
 		
 	}
 }
