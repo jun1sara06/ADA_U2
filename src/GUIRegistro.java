@@ -168,8 +168,6 @@ public class GUIRegistro extends JFrame {
 				 persona.setAño(Short.parseShort(spinnerAño.getValue().toString()));
 				 Personas.add(persona);
 				 
-				 ventanaDeRegistro.setVisible(false);
-				 ventanaDeBuscar.setVisible(true);
 			}
 		});
 		btnRegistrar.setBounds(740, 500, 116, 35);
