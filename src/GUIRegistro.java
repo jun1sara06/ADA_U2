@@ -56,19 +56,19 @@ public class GUIRegistro extends JFrame {
 		JPanel ventanaDeRegistro = new JPanel();
 		ventanaDeRegistro.setBounds(0, 0, 900, 600);
 		ventanaDeRegistro.setLayout(null);
+		ventanaDeRegistro.setVisible(false);
 		contentPane.add(ventanaDeRegistro);
 		
-		JPanel ventanaDeBuscar = new JPanel();
-		ventanaDeBuscar.setBounds(0, 0, 900, 600);
-		ventanaDeBuscar.setLayout(null);
-		ventanaDeBuscar.setVisible(true);
-		contentPane.add(ventanaDeBuscar);
+		JPanel ventanaDeMenu = new JPanel();
+		ventanaDeMenu.setBounds(0, 0, 900, 600);
+		ventanaDeMenu.setLayout(null);
+		contentPane.add(ventanaDeMenu);
 		
-		JLabel lblTitulo = new JLabel("Registra tu nivel de glucosa");
-		lblTitulo.setFont(new Font("Yu Gothic UI", Font.BOLD, 32));
-		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTitulo.setBounds(208, 11, 471, 88);
-		ventanaDeRegistro.add(lblTitulo);
+		JLabel lblTituloRegistro = new JLabel("Registra tu nivel de glucosa");
+		lblTituloRegistro.setFont(new Font("Yu Gothic UI", Font.BOLD, 32));
+		lblTituloRegistro.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTituloRegistro.setBounds(208, 11, 471, 88);
+		ventanaDeRegistro.add(lblTituloRegistro);
 		
 		JLabel lblNombre = new JLabel("Nombre de la persona a registrar");
 		lblNombre.setHorizontalAlignment(SwingConstants.CENTER);
@@ -107,10 +107,6 @@ public class GUIRegistro extends JFrame {
 		JComboBox<String> comboPersonas = new JComboBox<String>();
 		comboPersonas.setBounds(325, 200, 290, 30);
 		ventanaDeRegistro.add(comboPersonas);
-		if (Personas.isEmpty()) {
-			comboPersonas.addItem("No hay personas registradas.");
-			comboPersonas.setEnabled(false);
-		}
 		
 		JSpinner spinnerDia = new JSpinner();
 		spinnerDia.setBounds(325, 320, 60, 30);
@@ -141,9 +137,16 @@ public class GUIRegistro extends JFrame {
 		JComboBox<Integer> comboMes = new JComboBox<Integer>();
 		comboMes.setBounds(440, 320, 60, 30);
 		ventanaDeRegistro.add(comboMes);
-		for (int i=1; i <= 12; i++) {
-			comboMes.addItem(i);
-		}
+		
+		JButton btnRegresar = new JButton("Menú principal");
+		btnRegresar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ventanaDeRegistro.setVisible(false);
+				ventanaDeMenu.setVisible(true);
+			}
+		});
+		btnRegresar.setBounds(30, 500, 150, 35);
+		ventanaDeRegistro.add(btnRegresar);
 		
 		JButton btnRegistrar = new JButton("Registrar");
 		btnRegistrar.addActionListener(new ActionListener() {
@@ -173,6 +176,32 @@ public class GUIRegistro extends JFrame {
 		});
 		btnRegistrar.setBounds(740, 500, 116, 35);
 		ventanaDeRegistro.add(btnRegistrar);
+		
+		if (Personas.isEmpty()) {
+			comboPersonas.addItem("No hay personas registradas.");
+			comboPersonas.setEnabled(false);
+		}
+		
+		for (int i=1; i <= 12; i++) {
+			comboMes.addItem(i);
+		}
+		
+		JLabel lblTituloMenu = new JLabel("Menú principal");
+		lblTituloMenu.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTituloMenu.setFont(new Font("Yu Gothic UI", Font.BOLD, 32));
+		lblTituloMenu.setBounds(208, 11, 471, 88);
+		ventanaDeMenu.add(lblTituloMenu);
+		
+		JButton btnRegistro = new JButton("Registrar nueva entrada");
+		btnRegistro.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ventanaDeRegistro.setVisible(true);
+				ventanaDeMenu.setVisible(false);
+			}
+		});
+		btnRegistro.setBounds(340, 168, 200, 35);
+		ventanaDeMenu.add(btnRegistro);
+		
 		
 		
 	}
