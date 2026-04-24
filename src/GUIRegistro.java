@@ -21,6 +21,7 @@ public class GUIRegistro extends JFrame {
 	private JPanel contentPane;
 	private JTextField txtNombre;
 	private JTextField txtNivel;
+	private int idCont = 0;
 
 	/**
 	 * Launch the application.
@@ -148,9 +149,8 @@ public class GUIRegistro extends JFrame {
 		btnRegistrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Persona persona = new Persona();
-				int id = 0;
-				persona.setId(id);
-				id++;
+				persona.setId(idCont);
+				idCont++;
 				persona.setNombre(txtNombre.getText());
 				 try {
 			            float nivel = Float.parseFloat(txtNivel.getText());
@@ -158,10 +158,17 @@ public class GUIRegistro extends JFrame {
 			        } catch (NumberFormatException ex) {
 			            JOptionPane.showMessageDialog(null,
 			                "El valor ingresado en nivel no es válido. Debe ser un número.");
+			            return;
 			        }
 				 persona.setDia(Byte.parseByte(spinnerDia.getValue().toString()));
 				 persona.setMes(Byte.parseByte(comboMes.getSelectedItem().toString()));
 				 persona.setAño(Short.parseShort(spinnerAño.getValue().toString()));
+				 Personas.add(persona);
+				 comboPersonas.setEnabled(true);
+					comboPersonas.removeAllItems();
+					for (int i = 0; i < Personas.size(); i++) {
+					        comboPersonas.addItem(Personas.get(i).getNombre());
+					}
 			}
 		});
 		btnRegistrar.setBounds(740, 500, 116, 35);
@@ -170,3 +177,4 @@ public class GUIRegistro extends JFrame {
 		
 	}
 }
+	
