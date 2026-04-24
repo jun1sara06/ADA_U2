@@ -70,6 +70,12 @@ public class GUIRegistro extends JFrame {
 		ventanaConsultarHistorial.add(scrollPane);
 		
 		JButton btnMP = new JButton("Menú Principal");
+		btnMP.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ventanaConsultarHistorial.setVisible(false);
+				ventanaDeMenu.setVisible(true);
+			}
+		});
 		btnMP.setBounds(686, 479, 143, 43);
 		ventanaConsultarHistorial.add(btnMP);
 		
