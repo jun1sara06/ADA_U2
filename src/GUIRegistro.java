@@ -216,10 +216,7 @@ public class GUIRegistro extends JFrame {
 			comboMes.addItem(i);
 		}
 		
-		
-		
-		
-		
+	
 		
 	}
 }
