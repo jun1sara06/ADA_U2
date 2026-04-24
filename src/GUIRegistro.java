@@ -15,6 +15,7 @@ import javax.swing.JSpinner;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
@@ -62,33 +63,11 @@ public class GUIRegistro extends JFrame {
 		ventanaConsultarHistorial.setBounds(0, 0, 900, 600);
 		ventanaConsultarHistorial.setLayout(null);
 		ventanaConsultarHistorial.setVisible(false);
-		contentPane.add(ventanaConsultarHistorial);
-		
-		JList<String> listHistorial = new JList<>(Modelolis);
-		JScrollPane scrollPane = new JScrollPane(listHistorial);
-		scrollPane.setBounds(50, 50, 800, 400);
-		ventanaConsultarHistorial.add(scrollPane);
-		
-		JButton btnMP = new JButton("Menú Principal");
-		btnMP.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ventanaConsultarHistorial.setVisible(false);
-				ventanaDeMenu.setVisible(true);
-			}
-		});
-		btnMP.setBounds(686, 479, 143, 43);
-		ventanaConsultarHistorial.add(btnMP);
 		
 		JPanel ventanaDeRegistro = new JPanel();
 		ventanaDeRegistro.setBounds(0, 0, 900, 600);
 		ventanaDeRegistro.setLayout(null);
 		contentPane.add(ventanaDeRegistro);
-		
-		JPanel ventanaDeBuscar = new JPanel();
-		ventanaDeBuscar.setBounds(0, 0, 900, 600);
-		ventanaDeBuscar.setLayout(null);
-		ventanaDeBuscar.setVisible(true);
-		contentPane.add(ventanaDeBuscar);
 		
 		JLabel lblTitulo = new JLabel("Registra tu nivel de glucosa");
 		lblTitulo.setFont(new Font("Yu Gothic UI", Font.BOLD, 32));
@@ -133,10 +112,6 @@ public class GUIRegistro extends JFrame {
 		JComboBox<String> comboPersonas = new JComboBox<String>();
 		comboPersonas.setBounds(325, 200, 290, 30);
 		ventanaDeRegistro.add(comboPersonas);
-		if (Personas.isEmpty()) {
-			comboPersonas.addItem("No hay personas registradas.");
-			comboPersonas.setEnabled(false);
-		}
 		
 		JSpinner spinnerDia = new JSpinner();
 		spinnerDia.setBounds(325, 320, 60, 30);
@@ -167,9 +142,11 @@ public class GUIRegistro extends JFrame {
 		JComboBox<Integer> comboMes = new JComboBox<Integer>();
 		comboMes.setBounds(440, 320, 60, 30);
 		ventanaDeRegistro.add(comboMes);
-		for (int i=1; i <= 12; i++) {
-			comboMes.addItem(i);
-		}
+		
+		LocalDate hoy = LocalDate.now();
+		spinnerDia.setValue(hoy.getDayOfMonth());
+		comboMes.setSelectedItem(hoy.getMonthValue());
+		spinnerAño.setValue(hoy.getYear());
 		
 		JButton btnRegistrar = new JButton("Registrar");
 		btnRegistrar.addActionListener(new ActionListener() {
@@ -190,19 +167,8 @@ public class GUIRegistro extends JFrame {
 				 persona.setMes(Byte.parseByte(comboMes.getSelectedItem().toString()));
 				 persona.setAño(Short.parseShort(spinnerAño.getValue().toString()));
 				 Personas.add(persona);
-			}
-		});
-		btnRegistrar.setBounds(740, 500, 116, 35);
-		ventanaDeRegistro.add(btnRegistrar);
-		
-		JToolBar toolBar = new JToolBar();
-		toolBar.setBounds(20, 11, 141, 30);
-		ventanaDeRegistro.add(toolBar);
-		
-		JButton btnConsHis = new JButton("Consultar Hitorial");
-		btnConsHis.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Modelolis.clear();
+				 
+				 Modelolis.clear();
 				 for (int i=0; i<Personas.size()- 1; i++) {
 				        for (int j=0; j<Personas.size()- i - 1; j++) {
 				        	if (Personas.get(j).getNombre().compareToIgnoreCase(Personas.get(j+1).getNombre())>0) {
@@ -216,13 +182,39 @@ public class GUIRegistro extends JFrame {
 				 for (Persona n:Personas) {
 				        Modelolis.addElement("Paciente: "+n.getNombre()+" | Nivel: "+n.getNivel());
 				    }
-				 
-				 ventanaDeRegistro.setVisible(false);
-				 ventanaConsultarHistorial.setVisible(true);
 			}
 		});
-		btnConsHis.setFont(new Font("Yu Gothic", Font.BOLD, 12));
-		toolBar.add(btnConsHis);
+		btnRegistrar.setBounds(740, 500, 116, 35);
+		ventanaDeRegistro.add(btnRegistrar);
+		contentPane.add(ventanaConsultarHistorial);
+		
+		JList<String> listHistorial = new JList<>(Modelolis);
+		JScrollPane scrollPane = new JScrollPane(listHistorial);
+		scrollPane.setBounds(50, 50, 800, 400);
+		ventanaConsultarHistorial.add(scrollPane);
+		
+		JButton btnMP = new JButton("Menú Principal");
+		btnMP.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ventanaConsultarHistorial.setVisible(false);
+				ventanaDeMenu.setVisible(true);
+			}
+		});
+		btnMP.setBounds(686, 479, 143, 43);
+		ventanaConsultarHistorial.add(btnMP);
+		
+		JPanel ventanaDeBuscar = new JPanel();
+		ventanaDeBuscar.setBounds(0, 0, 900, 600);
+		ventanaDeBuscar.setLayout(null);
+		ventanaDeBuscar.setVisible(true);
+		contentPane.add(ventanaDeBuscar);
+		if (Personas.isEmpty()) {
+			comboPersonas.addItem("No hay personas registradas.");
+			comboPersonas.setEnabled(false);
+		}
+		for (int i=1; i <= 12; i++) {
+			comboMes.addItem(i);
+		}
 		
 		
 		
