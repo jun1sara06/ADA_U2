@@ -64,6 +64,42 @@ public class GUIRegistro extends JFrame {
 		ventanaDeMenu.setLayout(null);
 		contentPane.add(ventanaDeMenu);
 		
+		JLabel lblTituloMenu = new JLabel("Menú principal");
+		lblTituloMenu.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTituloMenu.setFont(new Font("Yu Gothic UI", Font.BOLD, 32));
+		lblTituloMenu.setBounds(208, 11, 471, 88);
+		ventanaDeMenu.add(lblTituloMenu);
+		
+		JButton btnRegistro = new JButton("Registrar nueva entrada");
+		btnRegistro.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ventanaDeMenu.setVisible(false);
+				ventanaDeRegistro.setVisible(true);
+			}
+		});
+		btnRegistro.setBounds(340, 150, 200, 35);
+		ventanaDeMenu.add(btnRegistro);
+		
+		JButton btnHistorial = new JButton("Ver historial completo");
+		btnHistorial.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ventanaDeMenu.setVisible(false);
+				ventanaConsultarHistorial.setVisible(true);
+			}
+		});
+		btnHistorial.setBounds(340, 250, 200, 35);
+		ventanaDeMenu.add(btnHistorial);
+		
+		JButton btnConsultar = new JButton("Consultar entrada");
+		btnHistorial.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ventanaDeMenu.setVisible(false);
+				ventanaDeBuscar.setVisible(true);
+			}
+		});
+		btnConsultar.setBounds(340, 350, 200, 35);
+		ventanaDeMenu.add(btnConsultar);
+		
 		JLabel lblTituloRegistro = new JLabel("Registra tu nivel de glucosa");
 		lblTituloRegistro.setFont(new Font("Yu Gothic UI", Font.BOLD, 32));
 		lblTituloRegistro.setHorizontalAlignment(SwingConstants.CENTER);
@@ -185,22 +221,6 @@ public class GUIRegistro extends JFrame {
 		for (int i=1; i <= 12; i++) {
 			comboMes.addItem(i);
 		}
-		
-		JLabel lblTituloMenu = new JLabel("Menú principal");
-		lblTituloMenu.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTituloMenu.setFont(new Font("Yu Gothic UI", Font.BOLD, 32));
-		lblTituloMenu.setBounds(208, 11, 471, 88);
-		ventanaDeMenu.add(lblTituloMenu);
-		
-		JButton btnRegistro = new JButton("Registrar nueva entrada");
-		btnRegistro.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ventanaDeRegistro.setVisible(true);
-				ventanaDeMenu.setVisible(false);
-			}
-		});
-		btnRegistro.setBounds(340, 168, 200, 35);
-		ventanaDeMenu.add(btnRegistro);
 		
 		
 		
