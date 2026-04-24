@@ -69,6 +69,10 @@ public class GUIRegistro extends JFrame {
 		scrollPane.setBounds(50, 50, 800, 400);
 		ventanaConsultarHistorial.add(scrollPane);
 		
+		JButton btnMP = new JButton("Menú Principal");
+		btnMP.setBounds(686, 479, 143, 43);
+		ventanaConsultarHistorial.add(btnMP);
+		
 		JPanel ventanaDeRegistro = new JPanel();
 		ventanaDeRegistro.setBounds(0, 0, 900, 600);
 		ventanaDeRegistro.setLayout(null);
