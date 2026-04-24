@@ -176,7 +176,7 @@ public class GUIRegistro extends JFrame {
 		ventanaDeRegistro.add(btnRegistrar);
 		
 		JTextArea resultados = new JTextArea("");
-		resultados.setBounds(211, 206, 374, 188);
+		resultados.setBounds(211, 172, 374, 188);
 		ventanaDeBuscar.add(resultados);
 		
 		//Cambios de Carol Canto
@@ -194,7 +194,7 @@ public class GUIRegistro extends JFrame {
 					if (p.getNombre().equals(nombreBuscado)) {
 						
 					resultado += p.getNombre( ) + 
-							"\n" + p.getNivel() +
+							"\n Nivel de glucosa" + p.getNivel() +
 							"\n" +p.getDia()+"/"+p.getMes()+"/"
 							+p.getAño();
 					
@@ -210,13 +210,23 @@ public class GUIRegistro extends JFrame {
 					ventanaDeBuscar.setVisible(true);
 			}
 		});
-		btnBuscar.setBounds(221, 440, 116, 35);
+		btnBuscar.setBounds(211, 440, 116, 35);
 		ventanaDeBuscar.add(btnBuscar);
 		
 		textField = new JTextField();
-		textField.setBounds(223, 60, 181, 41);
+		textField.setBounds(211, 60, 181, 41);
 		ventanaDeBuscar.add(textField);
 		textField.setColumns(10);
+		
+		JButton btnMenPrincipal = new JButton("Menú Principal");
+		btnMenPrincipal.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ventanaDeBuscar.setVisible(false);
+				ventanaDeMenu.setVisible(true);
+			}
+		});
+		btnMenPrincipal.setBounds(465, 440, 116, 35);
+		ventanaDeBuscar.add(btnMenPrincipal);
 		
 		
 		
