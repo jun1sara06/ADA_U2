@@ -91,7 +91,7 @@ public class GUIRegistro extends JFrame {
 		ventanaDeMenu.add(btnHistorial);
 		
 		JButton btnConsultar = new JButton("Consultar entrada");
-		btnHistorial.addActionListener(new ActionListener() {
+		btnConsultar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ventanaDeMenu.setVisible(false);
 				ventanaDeBuscar.setVisible(true);
@@ -174,6 +174,10 @@ public class GUIRegistro extends JFrame {
 		comboMes.setBounds(440, 320, 60, 30);
 		ventanaDeRegistro.add(comboMes);
 		
+		for (int i=1; i <= 12; i++) {
+			comboMes.addItem(i);
+		}
+		
 		JButton btnRegresar = new JButton("Menú principal");
 		btnRegresar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -190,7 +194,12 @@ public class GUIRegistro extends JFrame {
 				Persona persona = new Persona();
 				persona.setId(idCont);
 				idCont++;
+				if (!txtNombre.getText().isEmpty()) {
 				persona.setNombre(txtNombre.getText());
+				}
+				else {
+				persona.setNombre(comboPersonas.getSelectedItem().toString());
+				}
 				 try {
 			            float nivel = Float.parseFloat(txtNivel.getText());
 			            persona.setNivel(nivel);
@@ -208,6 +217,7 @@ public class GUIRegistro extends JFrame {
 					for (int i = 0; i < Personas.size(); i++) {
 					        comboPersonas.addItem(Personas.get(i).getNombre());
 					}
+				JOptionPane.showMessageDialog(null, "Registro exitoso.");
 			}
 		});
 		btnRegistrar.setBounds(740, 500, 116, 35);
@@ -218,9 +228,6 @@ public class GUIRegistro extends JFrame {
 			comboPersonas.setEnabled(false);
 		}
 		
-		for (int i=1; i <= 12; i++) {
-			comboMes.addItem(i);
-		}
 		
 		
 		
