@@ -2,18 +2,24 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JSpinner;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
+import javax.swing.JToolBar;
 
 public class GUIRegistro extends JFrame {
 
@@ -21,7 +27,11 @@ public class GUIRegistro extends JFrame {
 	private JPanel contentPane;
 	private JTextField txtNombre;
 	private JTextField txtNivel;
+//<<<<<<< HEAD
 	private int idCont = 0;
+//=======
+	
+//>>>>>>> refs/remotes/origin/Rama_Lisset_Persona2
 
 	/**
 	 * Launch the application.
@@ -43,8 +53,8 @@ public class GUIRegistro extends JFrame {
 	 * Create the frame.
 	 */
 	public GUIRegistro() {
-		
 		ArrayList<Persona> Personas = new ArrayList <Persona>();
+	    DefaultListModel<String> Modelolis = new DefaultListModel<>();
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 900, 600);
@@ -53,12 +63,18 @@ public class GUIRegistro extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		JPanel ventanaConsultarHistorial = new JPanel();
+		ventanaConsultarHistorial.setBounds(0, 0, 900, 600);
+		ventanaConsultarHistorial.setLayout(null);
+		ventanaConsultarHistorial.setVisible(false);
+		
 		JPanel ventanaDeRegistro = new JPanel();
 		ventanaDeRegistro.setBounds(0, 0, 900, 600);
 		ventanaDeRegistro.setLayout(null);
 		ventanaDeRegistro.setVisible(false);
 		contentPane.add(ventanaDeRegistro);
 		
+//<<<<<<< HEAD
 		JPanel ventanaDeMenu = new JPanel();
 		ventanaDeMenu.setBounds(0, 0, 900, 600);
 		ventanaDeMenu.setLayout(null);
@@ -105,6 +121,13 @@ public class GUIRegistro extends JFrame {
 		lblTituloRegistro.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTituloRegistro.setBounds(208, 11, 471, 88);
 		ventanaDeRegistro.add(lblTituloRegistro);
+//=======
+		JLabel lblTitulo = new JLabel("Registra tu nivel de glucosa");
+		lblTitulo.setFont(new Font("Yu Gothic UI", Font.BOLD, 32));
+		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTitulo.setBounds(208, 11, 471, 88);
+		ventanaDeRegistro.add(lblTitulo);
+//>>>>>>> refs/remotes/origin/Rama_Lisset_Persona2
 		
 		JLabel lblNombre = new JLabel("Nombre de la persona a registrar");
 		lblNombre.setHorizontalAlignment(SwingConstants.CENTER);
@@ -174,9 +197,16 @@ public class GUIRegistro extends JFrame {
 		comboMes.setBounds(440, 320, 60, 30);
 		ventanaDeRegistro.add(comboMes);
 		
+//<<<<<<< HEAD
 		for (int i=1; i <= 12; i++) {
 			comboMes.addItem(i);
 		}
+//=======
+		LocalDate hoy = LocalDate.now();
+		spinnerDia.setValue(hoy.getDayOfMonth());
+		comboMes.setSelectedItem(hoy.getMonthValue());
+		spinnerAño.setValue(hoy.getYear());
+//>>>>>>> refs/remotes/origin/Rama_Lisset_Persona2
 		
 		JButton btnRegresar = new JButton("Menú principal");
 		btnRegresar.addActionListener(new ActionListener() {
@@ -212,16 +242,50 @@ public class GUIRegistro extends JFrame {
 				 persona.setMes(Byte.parseByte(comboMes.getSelectedItem().toString()));
 				 persona.setAño(Short.parseShort(spinnerAño.getValue().toString()));
 				 Personas.add(persona);
+//<<<<<<< HEAD
 				 comboPersonas.setEnabled(true);
 					comboPersonas.removeAllItems();
 					for (int i = 0; i < Personas.size(); i++) {
 					        comboPersonas.addItem(Personas.get(i).getNombre());
 					}
 				JOptionPane.showMessageDialog(null, "Registro exitoso.");
+//=======
+				 
+				 Modelolis.clear();
+				 for (int i=0; i<Personas.size()- 1; i++) {
+				        for (int j=0; j<Personas.size()- i - 1; j++) {
+				        	if (Personas.get(j).getNombre().compareToIgnoreCase(Personas.get(j+1).getNombre())>0) {
+				        		Persona aux =Personas.get(j);
+				                Personas.set(j,Personas.get(j+1));
+				                Personas.set(j+1, aux);
+				            }
+				        }
+				    }
+
+				 for (Persona n:Personas) {
+				        Modelolis.addElement("Paciente: "+n.getNombre()+" | Nivel: "+n.getNivel());
+				    }
+//>>>>>>> refs/remotes/origin/Rama_Lisset_Persona2
 			}
 		});
 		btnRegistrar.setBounds(740, 500, 116, 35);
 		ventanaDeRegistro.add(btnRegistrar);
+		contentPane.add(ventanaConsultarHistorial);
+		
+		JList<String> listHistorial = new JList<>(Modelolis);
+		JScrollPane scrollPane = new JScrollPane(listHistorial);
+		scrollPane.setBounds(50, 50, 800, 400);
+		ventanaConsultarHistorial.add(scrollPane);
+		
+		JButton btnMP = new JButton("Menú Principal");
+		btnMP.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ventanaConsultarHistorial.setVisible(false);
+				ventanaDeMenu.setVisible(true);
+			}
+		});
+		btnMP.setBounds(686, 479, 143, 43);
+		ventanaConsultarHistorial.add(btnMP);
 		
 		if (Personas.isEmpty()) {
 			comboPersonas.addItem("No hay personas registradas.");
