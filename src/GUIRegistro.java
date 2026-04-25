@@ -200,6 +200,8 @@ public class GUIRegistro extends JFrame {
 				ventanaDeMenu.setVisible(true);
 			}
 		});
+		btnMP.setBounds(686, 479, 143, 43);
+		ventanaConsultarHistorial.add(btnMP);
 		
 		
 	}
