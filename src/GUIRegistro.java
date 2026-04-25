@@ -200,23 +200,7 @@ public class GUIRegistro extends JFrame {
 				ventanaDeMenu.setVisible(true);
 			}
 		});
-		btnMP.setBounds(686, 479, 143, 43);
-		ventanaConsultarHistorial.add(btnMP);
 		
-		JPanel ventanaDeBuscar = new JPanel();
-		ventanaDeBuscar.setBounds(0, 0, 900, 600);
-		ventanaDeBuscar.setLayout(null);
-		ventanaDeBuscar.setVisible(true);
-		contentPane.add(ventanaDeBuscar);
-		if (Personas.isEmpty()) {
-			comboPersonas.addItem("No hay personas registradas.");
-			comboPersonas.setEnabled(false);
-		}
-		for (int i=1; i <= 12; i++) {
-			comboMes.addItem(i);
-		}
-		
-	
 		
 	}
 }
