@@ -272,6 +272,7 @@ public class GUIRegistro extends JFrame {
 					        comboPersonas.addItem(Personas.get(i).getNombre());
 					}
 				JOptionPane.showMessageDialog(null, "Registro exitoso.");
+//<<<<<<< HEAD
 //=======
 				 
 				 Modelolis.clear();
@@ -292,6 +293,8 @@ public class GUIRegistro extends JFrame {
 //=======
 				 
 //>>>>>>> refs/remotes/origin/RamaCarol_persona3
+//=======
+//>>>>>>> branch 'master' of https://github.com/jun1sara06/ADA_U2.git
 			}
 		});
 		btnRegistrar.setBounds(740, 500, 116, 35);
