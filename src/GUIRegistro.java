@@ -190,7 +190,12 @@ public class GUIRegistro extends JFrame {
 				Persona persona = new Persona();
 				persona.setId(idCont);
 				idCont++;
+				if (!txtNombre.getText().isEmpty()) {
 				persona.setNombre(txtNombre.getText());
+				}
+				else {
+				persona.setNombre(comboPersonas.getSelectedItem().toString());
+				}
 				 try {
 			            float nivel = Float.parseFloat(txtNivel.getText());
 			            persona.setNivel(nivel);
@@ -208,6 +213,7 @@ public class GUIRegistro extends JFrame {
 					for (int i = 0; i < Personas.size(); i++) {
 					        comboPersonas.addItem(Personas.get(i).getNombre());
 					}
+				JOptionPane.showMessageDialog(null, "Registro exitoso.");
 			}
 		});
 		btnRegistrar.setBounds(740, 500, 116, 35);
